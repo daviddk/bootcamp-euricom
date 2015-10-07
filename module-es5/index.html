@@ -1,0 +1,32 @@
+<!-- bower config
+install bower -> jquery/bootstrap
+create JS module that accepts 2 values and performs a function on it (add, mul, ..) -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class='calc-interface'>
+        <div class="form-group group1">
+            <input type="number" name="val1" id="val1" class="form-control" />
+            <input type="number" name="val2" id="val2" class="form-control" />
+        </div>
+        <div class="button-group group2">
+            <input type="button" value="+" class="btn btn-d­efault add" />
+            <input type="button" value="*" class="btn btn-d­efault mul" />
+        </div>
+
+        <p>The result of your operation <span id="result"></span></p>
+    </div>
+
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="calc.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
