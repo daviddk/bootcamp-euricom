@@ -16,7 +16,7 @@ class Calc {
         return x + y;
     }
 
-    multiply(x, y) {
+    mul(x, y) {
         return x * y;
     }
 }
