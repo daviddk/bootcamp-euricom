@@ -1,5 +1,5 @@
 /*global jQuery, Handlebars, Router */
-(function ($, util) {
+(function ($, util, todoRepo) {
 	'use strict';
 
 	Handlebars.registerHelper('eq', function (a, b, options) {
@@ -13,6 +13,7 @@
 
 	var App = {
 		init: function () {
+            todoRepo.init();
 			this.todos = util.store('todos-jquery');
 			this.cacheElements();
 			this.bindEvents();
@@ -117,6 +118,7 @@
 				}
 			}
 		},
+        //refactored to todoRepo.add
 		create: function (e) {
 			var $input = $(e.target);
 			var val = $input.val().trim();
@@ -125,11 +127,13 @@
 				return;
 			}
 
-			this.todos.push({
+            todoRepo.add(val);
+
+/*            this.todos.push({
 				id: util.uuid(),
 				title: val,
 				completed: false
-			});
+			});*/
 
 			$input.val('');
 
@@ -175,10 +179,10 @@
 			this.render();
 		},
 		destroy: function (e) {
-			this.todos.splice(this.indexFromEl(e.target), 1);
+            todoRepo.remove(this.indexFromEl(e.target));
+			//this.todos.splice(this.indexFromEl(e.target), 1);
 			this.render();
 		}
 	};
-
 	App.init();
-})(jQuery, util);
+})(jQuery, util, todoRepo);
