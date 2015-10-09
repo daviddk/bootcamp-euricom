@@ -55,7 +55,8 @@
             var todos = todoRepo.getList(this.filter);
             this.$todoList.html(this.todoTemplate(todos));
             this.$main.toggle(todos.length > 0);
-            this.$toggleAll.prop('checked', this.getActiveTodos().length === 0);
+            this.$toggleAll.prop('checked', todoRepo.getList('active').length === 0);
+            //this.$toggleAll.prop('checked', this.getActiveTodos().length === 0);
             this.renderFooter();
             this.$newTodo.focus();
             todoRepo.store();
@@ -76,9 +77,10 @@
         toggleAll: function (e) {
             var isChecked = $(e.target).prop('checked');
 
-            this.todos.forEach(function (todo) {
+            /*this.todos.forEach(function (todo) {
                 todo.completed = isChecked;
-            });
+            });*/
+            todoRepo.toggleAll(isChecked);
 
             this.render();
         },
@@ -149,7 +151,8 @@
         },
         toggle: function (e) {
             var i = this.indexFromEl(e.target);
-            this.todos[i].completed = !this.todos[i].completed;
+            var todo = todoRepo.get(i);
+            todo.completed = !todo.completed;
             this.render();
         },
         edit: function (e) {

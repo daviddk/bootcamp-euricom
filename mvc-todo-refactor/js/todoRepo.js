@@ -13,13 +13,10 @@ var todoRepo = (function () {
             title: item,
             completed: false
         });
-        console.log(todos);
     }
 
     function remove(index) {
-        console.log(index);
         todos.splice(index, 1);
-        console.log(todos);
     }
 
     function arrayObjectIndexOf(array, term, property) {
@@ -30,12 +27,11 @@ var todoRepo = (function () {
     }
 
     function get(id) {
-        //return todos.indexOf(id);
-        return arrayObjectIndexOf(todos, id, "id");
+        return todos[id];
+        //return arrayObjectIndexOf(todos, id, "id");
     }
 
     function getList(filter) {
-        //filter todos (completed, all, active) and return the filtered list
         if(filter === 'completed') {
             return todos.filter(function (todo) {
                 return todo.completed;
@@ -53,13 +49,10 @@ var todoRepo = (function () {
         return util.store('todos-jquery', todos);
     }
 
-    function toggleAll(active) {
-        if(active) {
-            return;
-        }
-        else {
-            return;
-        }
+    function toggleAll(isChecked) {
+        todos.forEach(function (todo) {
+            todo.completed = isChecked;
+        });
     }
 
     return {

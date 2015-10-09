@@ -10,6 +10,7 @@ gulp.task('browser-sync', function() {
     });
 
     gulp.watch(global.paths.sass, ['sass']);
+    gulp.watch(global.paths.js).on('change', browserSync.reload);
     gulp.watch(global.paths.html).on('change', browserSync.reload);
 });
 
