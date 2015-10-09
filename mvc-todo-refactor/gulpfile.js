@@ -10,7 +10,7 @@ global.paths = {
   // JS sources.
   'js': './js/*.js',
   // SASS sources.
-  'sass': './scss/*.scss',
+  'sass': './scss/app.scss',
   // CSS destination folder.
   'css': './css',
   // Distribution folder.
