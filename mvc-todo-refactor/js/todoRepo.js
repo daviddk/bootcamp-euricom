@@ -35,14 +35,22 @@ var todoRepo = (function () {
     }
 
     function getList(filter) {
-        //filter todos and return the filtered list
+        //filter todos (completed, all, active) and return the filtered list
+        if(filter === 'completed') {
+            return todos.filter(function (todo) {
+                return todo.completed;
+            });
+        }
+        if(filter === 'active') {
+            return todos.filter(function (todo) {
+                return !todo.completed;
+            });
+        }
+        return todos;
+    }
 
-        if(true) {
-            return todos;
-        }
-        else {
-            return todos;
-        }
+    function store() {
+        return util.store('todos-jquery', todos);
     }
 
     function toggleAll(active) {
@@ -60,6 +68,7 @@ var todoRepo = (function () {
         remove: remove,
         get: get,
         getList: getList,
+        store: store,
         toggleAll: toggleAll
     }
 })();
