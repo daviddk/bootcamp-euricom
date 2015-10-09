@@ -1,16 +1,28 @@
 'use strict';
 
 var gulp = require('gulp');
-var sass = require('gulp-sass');
+var requireDir = require('require-dir');
 
-gulp.task('default', ['sass', 'sass:watch'])
+// Specify paths & globbing patterns for tasks.
+global.paths = {
+  // HTML sources.
+  'html': './*.html',
+  // JS sources.
+  'js': './js/*.js',
+  // SASS sources.
+  'sass': './scss/*.scss',
+  // CSS destination folder.
+  'css': './css',
+  // Distribution folder.
+  'dist': './dist'
+};
 
-gulp.task('sass', function () {
-  gulp.src('./css/*.scss')
-    .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('./css'));
-});
+// Require all tasks in the 'gulp' folder.
+requireDir('./gulp', { recurse : false });
 
-gulp.task('sass:watch', function () {
-  gulp.watch('./css/*.scss', ['sass']);
-});
+// Default task; start local server & watch for changes.
+gulp.task('default', ['sass', 'bower', 'browser-sync']);
+
+gulp.task('build', ['sass', 'bower', 'html', 'browser-sync-build']);
+
+
