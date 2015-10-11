@@ -14,7 +14,7 @@
     var App = {
         init: function () {
             todoRepo.init();
-            this.todos = util.store('todos-jquery');
+            //this.todos = util.store('todos-jquery');
             this.cacheElements();
             this.bindEvents();
 
@@ -63,7 +63,7 @@
             //util.store('todos-jquery', this.todos);
         },
         renderFooter: function () {
-            var todoCount = this.todos.length;
+            var todoCount = todoRepo.getList().length;
             var activeTodoCount = this.getActiveTodos().length;
             var template = this.footerTemplate({
                 activeTodoCount: activeTodoCount,
@@ -90,16 +90,12 @@
             });
         },
         getActiveTodos: function () {
-            return this.todos.filter(function (todo) {
-                return !todo.completed;
-            });
+            return todoRepo.getList('active');
         },
         getCompletedTodos: function () {
-            return this.todos.filter(function (todo) {
-                return todo.completed;
-            });
+            return todoRepo.getList('completed');
         },
-        getFilteredTodos: function () {
+/*        getFilteredTodos: function () {
             if (this.filter === 'active') {
                 return this.getActiveTodos();
             }
@@ -109,7 +105,7 @@
             }
 
             return this.todos;
-        },
+        },*/
         destroyCompleted: function () {
             this.todos = this.getActiveTodos();
             this.filter = 'all';
@@ -119,7 +115,7 @@
         // returns the corresponding index in the `todos` array
         indexFromEl: function (el) {
             var id = $(el).closest('li').data('id');
-            var todos = this.todos;
+            var todos = todoRepo.getList();
             var i = todos.length;
 
             while (i--) {
