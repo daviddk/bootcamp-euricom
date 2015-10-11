@@ -1,3 +1,5 @@
+import {todoRepo, util}
+
 /*global jQuery, Handlebars, Router */
 (function ($, util, todoRepo) {
     'use strict';
