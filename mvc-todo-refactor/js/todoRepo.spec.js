@@ -25,6 +25,4 @@ describe('to do service', function() {
             expect(todos.length).toBe(0);
         });
     });
-
-    describe
 });
