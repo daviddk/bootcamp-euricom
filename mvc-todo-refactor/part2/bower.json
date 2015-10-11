@@ -1,0 +1,25 @@
+{
+  "name": "mvc-todo-refactor",
+  "version": "1.0.0",
+  "homepage": "https://github.com/daviddk/bootcamp-euricom",
+  "description": "Refactor MVC To Do exercise",
+  "main": "",
+  "moduleType": [],
+  "authors": [
+    "David De Keersmaecker"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "handlebars": "~4.0.3",
+    "director": "~1.2.8"
+  }
+}
