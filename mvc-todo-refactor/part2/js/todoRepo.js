@@ -1,4 +1,5 @@
-import {util} from './';
+'use strict';
+import util from './util.js';
 
 class TodoRepo {
     constructor() {

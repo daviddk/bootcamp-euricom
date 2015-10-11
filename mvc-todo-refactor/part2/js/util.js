@@ -1,3 +1,5 @@
+'use strict';
+
 class Util {
     uuid() {
         /*jshint bitwise:false */
