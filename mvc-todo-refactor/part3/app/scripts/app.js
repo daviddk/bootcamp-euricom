@@ -108,9 +108,13 @@ jQuery(function ($) {
         },
         toggle: function (e) {
             var id = this.getIdFromEl(e.target);
-            var todo = this.todoRepo.get(id);
-            todo.completed = !todo.completed;
-            this.render();
+            //var todo = this.todoRepo.get(id);
+            //todo.completed = !todo.completed;
+            this.todoRepo.getAjax(id, function(todo) {
+                this.todoRepo.toggle(id, todo, function() {
+                    this.render();
+                }.bind(this));
+            }.bind(this));
         },
         edit: function (e) {
             var $input = $(e.target).closest('li').addClass('editing').find('.edit');

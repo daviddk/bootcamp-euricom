@@ -58,16 +58,20 @@ var TodoRepo = (function() {
             });
         }
 
-        //ophalen - wijzigen - terugsturen (stringify gebruiken voor bool)
-        toggle(id, callback) {
-            $.ajax({
-                url: 'http://localhost:8080/api/todos/' + id
-                type: 'GET',
-                data: id,
-                contentType: 'json',
-                success: function(data) {
+        getAjax(id, callback) {
+            $.get('http://localhost:8080/api/todos/' + id, function(data) {
+               callback(data);
+           });
+        }
 
-                },
+        //ophalen - wijzigen - terugsturen (stringify gebruiken voor bool)
+        toggle(id, todo, callback) {
+            $.ajax({
+                url: 'http://localhost:8080/api/todos/' + id,
+                type: 'PUT',
+                data: { completed : !todo.completed },
+                contentType: 'json',
+                success: callback
             });
         }
 

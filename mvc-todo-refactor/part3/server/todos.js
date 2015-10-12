@@ -7,17 +7,16 @@ var todos = [
    {
        id : 1,
        title: "Feest met Joris",
-       complete: false
+       completed: false
    },
    {
        id : 2,
        title: "Wandelen met Babs",
-       complete: false
+       completed: false
    }
 ];
 
 router.get('/todos/:id', function(req, res, next) {
-    console.log(req.params.id);
     var todo = _.findWhere(todos, {id: + req.params.id})
     if(!todo) {
         return res.send(404, "not found");
@@ -28,9 +27,13 @@ router.get('/todos/:id', function(req, res, next) {
 
 //put verder afwerken
 router.put('/todos/:id', function(req, res, next) {
-    var resource = {
-    }
-})
+    var resource = req.body;
+
+    var todo = _.findWhere(todos, {id: Number(req.params.id)});
+    var result = _.extend(todo, res.data);
+    console.log(result);
+    res.status(201).send(result);
+});
 
 router.get('/todos', function(req, res, next) {
     res.send(todos);
@@ -38,7 +41,6 @@ router.get('/todos', function(req, res, next) {
 
 //get title from body, create ID for it, save it to todos array
 router.post('/todos', function(req, res, next) {
-    console.log(req.body);
     var resource = {
         id: new Date().valueOf(),
         title: req.body.title,
