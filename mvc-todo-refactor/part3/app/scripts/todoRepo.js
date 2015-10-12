@@ -67,11 +67,13 @@ var TodoRepo = (function() {
         //ophalen - wijzigen - terugsturen (stringify gebruiken voor bool)
         toggle(id, todo, callback) {
             var obj = {completed: !todo.completed};
+
             $.ajax({
                 url: 'http://localhost:8080/api/todos/' + id,
                 type: 'PUT',
                 data: JSON.stringify(obj),
-                contentType: 'json',
+                dataType: 'json',
+                contentType: 'application/json',
                 success: callback
             });
         }
