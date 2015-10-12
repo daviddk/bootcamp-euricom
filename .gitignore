@@ -1,5 +1,8 @@
 # Created by https://www.gitignore.io/api/bower,node
 
+### tmp source ###
+.tmp
+
 ### Bower ###
 bower_components
 .bower-cache

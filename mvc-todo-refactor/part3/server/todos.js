@@ -6,12 +6,12 @@ var router = express.Router();
 var todos = [
    {
        id : 1,
-       title: "task 1",
+       title: "Feest met Joris",
        complete: false
    },
    {
        id : 2,
-       title: "task 2",
+       title: "Wandelen met Babs",
        complete: false
    }
 ];
