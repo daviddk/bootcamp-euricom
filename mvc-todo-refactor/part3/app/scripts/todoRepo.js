@@ -31,17 +31,57 @@ var TodoRepo = (function() {
             return _.find(this.todos, todo => todo.id === id);
         }
 
-        getList(filter){
+
+        getList(callback) {
+            $.get('http://localhost:8080/api/todos', function(data) {
+                callback(data);
+            });
+        }
+
+        addAjax(title, callback) {
+            var newObj = {
+                title: title,
+                complete: false
+            };
+            $.post('http://localhost:8080/api/todos', newObj, function(data) {
+                callback(data);
+            }, "json");
+        }
+
+        removeAjax(id, callback) {
+            $.ajax({
+                url: 'http://localhost:8080/api/todos/' + id,
+                type: 'DELETE',
+                success: callback,
+                data: id,
+                contentType: 'json'
+            });
+        }
+
+        //ophalen - wijzigen - terugsturen (stringify gebruiken voor bool)
+        toggle(id, callback) {
+            $.ajax({
+                url: 'http://localhost:8080/api/todos/' + id
+                type: 'GET',
+                data: id,
+                contentType: 'json',
+                success: function(data) {
+
+                },
+            });
+        }
+
+/*        getList(filter){
             if (filter === 'active') {
-                return this.getActiveTodos();
+                return this._getActiveTodos();
             }
 
             if (filter === 'completed') {
-                return this.getCompletedTodos();
+                return this._getCompletedTodos();
             }
 
             return this.todos;
-        }
+        }*/
 
         _getActiveTodos () {
             return this.todos.filter(function (todo) {
