@@ -27,11 +27,13 @@ router.get('/todos/:id', function(req, res, next) {
 
 //put verder afwerken
 router.put('/todos/:id', function(req, res, next) {
-    var resource = req.body;
+    console.log('body: ' + JSON.stringify(req.body));
 
     var todo = _.findWhere(todos, {id: Number(req.params.id)});
-    var result = _.extend(todo, res.data);
-    console.log(result);
+    var result = _.extend(todo, req.body);
+    console.log('todo:' + JSON.stringify(todo));
+    console.log('result: ' + JSON.stringify(result));
+
     res.status(201).send(result);
 });
 
