@@ -78,6 +78,19 @@ var TodoRepo = (function() {
             });
         }
 
+        toggleAll(check, callback) {
+            var obj = {completed: check};
+
+            $.ajax({
+                url: 'http://localhost:8080/api/todos/toggleAll/',
+                method: 'PUT',
+                data: JSON.stringify(obj),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: callback
+            });
+        }
+
 /*        getList(filter){
             if (filter === 'active') {
                 return this._getActiveTodos();

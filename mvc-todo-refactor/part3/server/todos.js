@@ -16,7 +16,7 @@ var todos = [
    }
 ];
 
-router.get('/todos/:id', function(req, res, next) {
+router.get('/:id', function(req, res, next) {
     var todo = _.findWhere(todos, {id: + req.params.id})
     if(!todo) {
         return res.send(404, "not found");
@@ -25,24 +25,33 @@ router.get('/todos/:id', function(req, res, next) {
     return res.send(todo);
 });
 
-//put verder afwerken
-router.put('/todos/:id', function(req, res, next) {
-    console.log('body: ' + JSON.stringify(req.body));
+router.put('/:id', function(req, res, next) {
+    //console.log('body: ' + JSON.stringify(req.body));
 
     var todo = _.findWhere(todos, {id: Number(req.params.id)});
     var result = _.extend(todo, req.body);
-    console.log('todo:' + JSON.stringify(todo));
-    console.log('result: ' + JSON.stringify(result));
+    //console.log('todo:' + JSON.stringify(todo));
+    //console.log('result: ' + JSON.stringify(result));
 
     res.status(201).send(result);
 });
 
-router.get('/todos', function(req, res, next) {
+router.put('/toggleAll', function (req, res, next) {
+    var toggle = req.body;
+
+    _.each(todos, function(todo) {
+        todo.completed = toggle.checked
+    });
+
+    return res.status(200).send(todos);
+});
+
+router.get('/', function(req, res, next) {
     res.send(todos);
 });
 
 //get title from body, create ID for it, save it to todos array
-router.post('/todos', function(req, res, next) {
+router.post('/', function(req, res, next) {
     var resource = {
         id: new Date().valueOf(),
         title: req.body.title,
@@ -52,7 +61,7 @@ router.post('/todos', function(req, res, next) {
     res.status(201).send(resource);
 });
 
-router.delete('/todos/:id', function(req, res, next) {
+router.delete('/:id', function(req, res, next) {
     var todo = _.findWhere(todos, { id: Number(req.params.id)});
     if(!todo) {
         return res.status(204);

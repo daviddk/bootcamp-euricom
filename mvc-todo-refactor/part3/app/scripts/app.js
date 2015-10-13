@@ -78,8 +78,10 @@ jQuery(function ($) {
         },
         toggleAll: function (e) {
             var isChecked = $(e.target).prop('checked');
-            this.todoRepo.setCompleted(isChecked);
-            this.render();
+            //this.todoRepo.setCompleted(isChecked);
+            this.todoRepo.toggleAll(isChecked, function() {
+                this.render();
+            }.bind(this));
         },
         destroyCompleted: function () {
             this.todoRepo.removeCompleted();

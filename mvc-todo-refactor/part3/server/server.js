@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded(
 app.use(bodyParser.json());
 
 // routes
-app.use('/api', todos);
+app.use('/api/todos', todos);
 
 // listening
 var server = app.listen(app.get('port'), function() {
