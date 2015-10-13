@@ -70,7 +70,11 @@ router.post('/', function(req, res, next) {
 
 router.put('/:id', function(req, res, next) {
     User.findOne({_id: req.params.id}, function(err, user) {
-        user.email = req.body.email ? req.body.email : user.email;
+
+        if(!user) {
+            return res.status(404).send('no user specified');
+        }
+        //user.email = req.body.email ? req.body.email : user.email;
 
         // var name = req.body.name.split(" ");
         // var tempUser = User({
@@ -86,15 +90,18 @@ router.put('/:id', function(req, res, next) {
         //     }
         // });
 
-        // console.log(user);
-        // console.log(tempUser);
+        var name = req.body.name.split(" ");
+        user.id = req.params.id;
+        user.firstName = name[0] ? name[0] : user.firstName;
+        user.lastName = name[1] ? name[1]: user.lastName;
+        user.age = req.body.age ? req.body.age : user.age;
+        user.email = req.body.email ? req.body.email : user.email;
+        user.homeAddress.addressLine = req.body.addressLine ? req.body.addressLine : user.homeAddress.addressLine;
+        user.homeAddress.city = req.body.city ? req.body.city : user.homeAddress.city;
+        user.homeAddress.zip = req.body.zip ? req.body.zip : user.homeAddress.zip;
 
-        // var result = _.extend(user, tempUser);
-
-        // console.log(result);
-
-        result.save({_id: req.params.id}, function(err) {
-            res.status(201).send(userMapper.map(result));
+        user.save(function () {
+            return res.status(201).send(userMapper.map(user));
         });
     });
 });
