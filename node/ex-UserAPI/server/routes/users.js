@@ -74,21 +74,6 @@ router.put('/:id', function(req, res, next) {
         if(!user) {
             return res.status(404).send('no user specified');
         }
-        //user.email = req.body.email ? req.body.email : user.email;
-
-        // var name = req.body.name.split(" ");
-        // var tempUser = User({
-        //     _id: req.params.id,
-        //     firstName: name[0],
-        //     lastName: name[1],
-        //     age: req.body.age,
-        //     email: req.body.email,
-        //     homeAddress: {
-        //         addressLine: req.body.address,
-        //         city: req.body.city,
-        //         zip: req.body.zip
-        //     }
-        // });
 
         var name = req.body.name.split(" ");
         user.id = req.params.id;
