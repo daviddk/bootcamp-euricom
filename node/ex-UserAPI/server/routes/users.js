@@ -70,23 +70,30 @@ router.post('/', function(req, res, next) {
 
 router.put('/:id', function(req, res, next) {
     User.findOne({_id: req.params.id}, function(err, user) {
+        user.email = req.body.email ? req.body.email : user.email;
 
-        var name = req.body.name.split(" ");
-        var tempUser = User({
-            firstName: name[0],
-            lastName: name[1],
-            age: req.body.age,
-            email: req.body.email,
-            homeAddress: {
-                addressLine: req.body.address,
-                city: req.body.city,
-                zip: req.body.zip
-            }
-        });
+        // var name = req.body.name.split(" ");
+        // var tempUser = User({
+        //     _id: req.params.id,
+        //     firstName: name[0],
+        //     lastName: name[1],
+        //     age: req.body.age,
+        //     email: req.body.email,
+        //     homeAddress: {
+        //         addressLine: req.body.address,
+        //         city: req.body.city,
+        //         zip: req.body.zip
+        //     }
+        // });
 
-        var result = _.extend(user, tempUser);
+        // console.log(user);
+        // console.log(tempUser);
 
-        result.update({_id: req.params.id}, function(err) {
+        // var result = _.extend(user, tempUser);
+
+        // console.log(result);
+
+        result.save({_id: req.params.id}, function(err) {
             res.status(201).send(userMapper.map(result));
         });
     });

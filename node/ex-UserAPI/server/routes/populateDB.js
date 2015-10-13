@@ -1,5 +1,7 @@
-function fillCollection() {
-    var userCollection = [];
+//check if you have one user if not, run populate
+
+var collection = function() {
+    userCollection = [];
 
     for(let i = 0; i < 10; i++) {
         var user = new Users({
@@ -19,8 +21,6 @@ function fillCollection() {
     console.log(userCollection);
     return userCollection;
 }
-
-var collection = fillCollection();
 
 Users.collection.insert(collection, onInsert);
 
