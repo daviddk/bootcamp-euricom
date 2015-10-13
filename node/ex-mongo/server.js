@@ -16,7 +16,8 @@ app.use(bodyParser.urlencoded(
 //routes
 var obj = [
     {id: 1, name: 'david'},
-    {id: 2, name: 'joris'}
+    {id: 2, name: 'joris'},
+    {id: 3, name: 'seeger'}
 ]
 
 app.get('/', function(req, res, next) {
