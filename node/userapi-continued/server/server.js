@@ -7,9 +7,16 @@ var mongoose = require('mongoose');
 var cfg = require('./config');
 var User = require('./models/user');
 var dataGenerator = require('./config/dataGenerator');
+var auth = require('./middleware/auth');
+var errorHandler = require('./middleware/errorHandler');
 
 // app setup
 var app = express();
+
+var password = '12345';
+
+//app.use(auth(password));
+
 app.use(cors());
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({
@@ -28,6 +35,8 @@ User.collection.count(function(err, count) {
 
 // routes
 app.use('/api/users', userApi);
+
+app.use(errorHandler());
 
 // listen for incomming request
 var server = app.listen(cfg.port, function() {
