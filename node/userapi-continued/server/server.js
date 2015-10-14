@@ -19,17 +19,17 @@ app.use(bodyParser.json());
 
 //setup db
 mongoose.connect('mongodb://localhost/demo');
-if(User.findOne({}, function(err, user){
-    if(!user){
-        // create inital data
+
+User.collection.count(function(err, count) {
+    if(!err && count === 0){
         dataGenerator.fillDb();
     }
-}));
+});
 
 // routes
 app.use('/api/users', userApi);
 
 // listen for incomming request
-var server = app.listen(cfg.port, function(){
+var server = app.listen(cfg.port, function() {
     console.log('Express server listening on port ' + server.address().port);
 });

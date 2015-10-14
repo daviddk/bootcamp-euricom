@@ -64,8 +64,8 @@ router.put('/:id', function(req, res, next){
 
         // when found, update it
         var names = resource.name.split(" ");
-        user.firstName = names[0] ? names[0] user.firstName;
-        user.lastName = names[1] ? names[0] user.lastName;
+        user.firstName = names[0] ? names[0] : user.firstName;
+        user.lastName = names[1] ? names[1] : user.lastName;
         user.age = resource.age ? resource.age : user.age;
         user.email = resource.email ? resource.email : user.email;
         user.homeAddress.addressLine = resource.address ? resource.address : user.homeAddress.addressLine;
