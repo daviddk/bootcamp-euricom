@@ -147,12 +147,10 @@ router.post('/', /*validator(userSchema),*/ function(req, res, next){
 
 // DELETE /api/users/12213
 router.delete('/:id', function(req, res, next){
-    var resource = req.body;
-
     repository.findOne({_id: req.params.id})
         .then(function(user) {
             if(!user) return next(error(404));
-            res.status(200).send(userMapper.map(user));
+            return repository.remove(user);
         })
         .then(function(user) {
             var resource = userMapper.map(user);
