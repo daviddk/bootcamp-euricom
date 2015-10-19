@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+          display: none !important;
+        }
+
+        .otherStyle {
+            transition: all 550ms;
+        }
+        .myStyle {
+            background-color: tomato;
+            font-size: 2em;
+        }
+
+        .myOtherStyle {
+            background-color: green;
+        }
+    </style>
+</head>
+<body ng-app="myApp" ng-cloak>
+<div ng-controller="MyController">
+    <b>Invoice:</b>
+    <div>
+        Quantity: <input type="text" ng-model="quantity" ng-change="computeMessage()">
+        {{quantity}}
+    </div>
+    <div>
+        Costs: <input type="number" ng-model="cost">
+        {{cost}}
+    </div>
+    <div>
+        <b>Total:</b> {{quantity * cost | currency}}
+    </div>
+    {{message}}<br />
+    <span ng-bind="message"></span>
+
+    <div>
+        <h1>Repeater example</h1>
+        <input type="text" ng-model="name" />
+        <input type="text" ng-model="city" />
+        <button ng-click="addCustomer()">Add customer</button>
+
+        filter: <input type="text" ng-model="nameFilter" />
+        <ul>
+            <li ng-repeat="customer in customers | filter:{name:nameFilter} | orderBy: 'city'">{{$index}} {{customer.name}} - {{customer.city}}</li>
+        </ul>
+    </div>
+
+    <h1>ng-hide</h1>
+    <button ng-click="toggle()">Toggle message</button>
+    <div ng-if="!showMessage">This is your message: {{showMessage}}</div>
+
+    <h1>ng-style</h1>
+    <span ng-style="messageStyle">{{message}}</span>
+
+    <span class="otherStyle" ng-class="showAlert ? 'myStyle' : 'myOtherStyle'">Another Style</span>
+
+    <span class="otherStyle" ng-class="{'myStyle' : showAlert}">{{message}}</span>
+</div>
+
+<script src="bower_components/angular/angular.js"></script>
+<script src="app.js"></script>
+<script src="myService.js"></script>
+<script src="controllers.js"></script>
+</body>
+</html>
