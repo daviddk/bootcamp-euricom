@@ -5,31 +5,58 @@
         .module('userApp')
         .controller("userController", userController);
 
-    function userController($scope, userService) {
-        $scope.users = [];
-        $scope.message = "User table";
-        $scope.orderByField = 'name';
-        $scope.reverseSort = false;
+    function userController(userService) {
+        var vm = this;
+        vm.users = [];
+        vm.message = "User table";
+        vm.orderByField = 'name';
+        vm.reverseSort = false;
+        vm.page = 1;
+        vm.sort = 'name';
 
-        userService.getUsers()
-            .then(function(response) {
-                if(!response) {
-                    next("error");
-                }
-                $scope.users = response.data;
-            })
-            .catch(function(err) {
-                console.log(err);
-            });
+        activate();
 
-        $scope.deleteUser = function(user) {
+        function activate() {
+            userService.getUsers(vm.page, vm.sort)
+                .then(function(response) {
+                    if(!response) {
+                        next("error");
+                    }
+                    vm.users = response.data;
+                })
+                .catch(function(err) {
+                    console.log(err);
+                });
+        }
+
+        vm.deleteUser = function(user) {
             console.log('deleting', user.id);
 
             userService.deleteUser(user.id)
                 .then(function(response) {
-                    $scope.users = _.without($scope.users, user);
+                    vm.users = _.without(vm.users, user);
                 })
         }
+
+        vm.loadMore = function() {
+            vm.page += 1;
+            userService.getUsers(vm.page, vm.sort)
+                .then(function (response) {
+                    console.log(response.data);
+                    vm.users.push(response.data);
+                })
+                .catch(function(err) {
+                });
+        }
+
+        // vm.deleteUser = function(user) {
+        //     console.log('deleting', user.id);
+
+        //     userService.deleteUser(user.id)
+        //         .then(function(response) {
+        //             vm.users = _.without(vm.users, user);
+        //         })
+        // }
     }
 })();
 

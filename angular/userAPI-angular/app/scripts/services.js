@@ -4,8 +4,12 @@
         .factory('userService', userService);
 
     function userService($http) {
-        function getUsers() {
-            return $http.get('/api/users');
+        var page = 10,
+            pageSize = 5;
+
+        function getUsers(page, sort) {
+            // /api/users?page=0&pageSize=20&sort=+age
+            return $http.get('/api/users?pageSize=10&page=' + page + '&sort=' + sort);
         }
 
         function deleteUser(id) {
