@@ -22,13 +22,12 @@
                 console.log(err);
             });
 
-        $scope.deleteUser = function(id) {
-            console.log('deleting', id);
+        $scope.deleteUser = function(user) {
+            console.log('deleting', user.id);
 
-            userService.deleteUser(id)
+            userService.deleteUser(user.id)
                 .then(function(response) {
-                    console.log(response);
-                    scope.$apply();
+                    $scope.users = _.without($scope.users, user);
                 })
         }
     }

@@ -8,12 +8,12 @@
 </head>
 <body ng-app="userApp" ng-cloak>
     <div ng-controller="userController">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-1">
             <h1>{{message}}</h1>
 
             <span class="label">Ordered By: {{orderByField}}, Reverse Sort: {{reverseSort}}</span>
 
-            <table class="table table-striped table-hover">
+            <table class="table table-striped table-hover table-borders">
                 <tr>
                     <th>
                         <a href="#" ng-click="orderByField='name'; reverseSort = !reverseSort">
@@ -44,12 +44,13 @@
                     <td>{{user.address}}</td>
                     <td>{{user.zip}}</td>
                     <td>{{user.city}}</td>
-                    <td><a href="#" ng-click="deleteUser(user.id)">x</a></td>
+                    <td><a href="#" ng-click="deleteUser(user)"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
                 </tr>
             </table>
         </div>
     </div>
     <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/underscore/underscore-min.js"></script>
     <script src="scripts/app.js"></script>
     <script src="scripts/services.js"></script>
     <script src="scripts/controllers.js"></script>
