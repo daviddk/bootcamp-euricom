@@ -4,12 +4,23 @@
     <meta charset="UTF-8">
     <title>UserAPI Angular Demo</title>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/AngularJS-Toaster/toaster.css">
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body ng-app="userApp" ng-cloak>
+    <toaster-container></toaster-container>
+
     <div ng-controller="userController as userVm">
         <div class="col-md-10 col-md-offset-1">
             <h1>{{userVm.message}}</h1>
+
+            <button type="button" class='btn btn-default' ng-click="userVm.showAlert()">Show Alert</button>
+
+            <button type="button" class='btn btn-default' ng-click="userVm.countDown()">Start launch sequence</button>
+
+            <h1>Apollo 13 launching in: {{userVm.counter}}</h1>
+
+            <uib-alert close="userVm.showAlert()" ng-if="userVm.showAlerts">{{userVm.alert}}</uib-alert>
 
             <span class="label">Ordered By: {{userVm.orderByField}}, Reverse Sort: {{userVm.reverseSort}}</span>
 
@@ -44,7 +55,7 @@
                     <td>{{user.address}}</td>
                     <td>{{user.zip}}</td>
                     <td>{{user.city}}</td>
-                    <td><a href="#" ng-click="userVm.deleteUser(user)"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+                    <td><a href="#" class="btn btn-danger" ng-click="userVm.deleteUser(user)"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
                 </tr>
             </table>
 
@@ -52,9 +63,13 @@
         </div>
     </div>
     <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/AngularJS-Toaster/toaster.js"></script>
     <script src="bower_components/underscore/underscore-min.js"></script>
     <script src="scripts/app.js"></script>
     <script src="scripts/services.js"></script>
+    <!-- <script src="scripts/provider.js"></script> -->
     <script src="scripts/controllers.js"></script>
 </body>
 </html>
