@@ -1,0 +1,31 @@
+<div class="col-md-10 col-md-offset-1">
+    <h1>{{vm.message}}</h1>
+
+    <form name="myForm" novalidate>
+        <div class="form-group">
+            <label for="firstName">First name:</label>
+            <input type="text"
+                class="form-control"
+                id="firstName"
+                name="firstName"
+                ng-model="vm.firstName"
+                required />
+        </div>
+
+        <div class="form-group">
+            <label for="age">Age:</label>
+            <input type="text"
+                class="form-control"
+                id="age"
+                name="age"
+                ng-model="vm.age"
+                required />
+        </div>
+
+        <input class="btn btn-default" type="submit" />
+    </form>
+
+    <pre>
+        {{ myForm | json }}
+    </pre>
+</div>

@@ -7,10 +7,11 @@
         .controller("view1Controller", view1)
         .controller("view2Controller", view2);
 
-    function app($location) {
+    function app($state) {
         var vm = this;
         vm.message = "Hello, David";
         vm.goToView2 = goToView2;
+        vm.userid = 123;
 
         activate();
 
@@ -18,7 +19,7 @@
         }
 
         function goToView2() {
-            $location.path('view2');
+            $state.go('view2');
         }
     }
 
@@ -32,11 +33,11 @@
         }
     }
 
-    function view2($log, $routeParams) {
+    function view2($log, $stateParams) {
         var vm = this;
-        vm.message = "Hello, David. Welcome to view 2, it got called with params:" + $routeParams.userid;
+        vm.message = "Hello, David. Welcome to view 2, it got called with params:" + $stateParams.userid;
 
-        $log.info('route paramameters:', $routeParams.userid);
+        $log.info('route paramameters:', $stateParams.userid);
 
         activate();
 

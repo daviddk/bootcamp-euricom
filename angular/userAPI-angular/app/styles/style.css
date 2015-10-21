@@ -4,6 +4,16 @@
 
 body {
     background-color: #fff;
+    padding: 70px 0 100px 0;
+}
+
+nav.navbar img {
+    height: 100%;
+    width: auto;
+}
+
+.userbtn {
+    margin: 0 0 10px 0;
 }
 
 /*.ng-scope {

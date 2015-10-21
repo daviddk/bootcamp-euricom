@@ -1,4 +1,5 @@
 var express = require('express');
+var path = require('path');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var userApi = require('./routes/users');
@@ -34,6 +35,11 @@ User.findOne(null, function(err, user){
 
 // routes
 app.use('/api/users', userApi);
+
+// // send all requests to index, so Angular can initialize
+// app.use('/*', function(req, res, next) {
+//     res.sendFile(path.resolve('app/index.html'));
+// });
 
 // middleware - error handlers
 app.use(globalErrorHandler());

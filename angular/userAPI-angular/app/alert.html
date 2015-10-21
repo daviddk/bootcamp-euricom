@@ -1,0 +1,9 @@
+<div class="col-md-10 col-md-offset-1">
+    <button type="button" class='btn btn-default' ng-click="vm.showAlert()">Show Alert</button>
+
+    <button type="button" class='btn btn-default' ng-click="vm.countDown()">Start launch sequence</button>
+
+    <h1>Apollo 13 launching in: {{vm.counter}}</h1>
+
+    <uib-alert close="vm.showAlert()" ng-if="vm.showAlerts">{{vm.alert}}</uib-alert>
+</div>

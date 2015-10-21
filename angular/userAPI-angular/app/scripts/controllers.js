@@ -3,9 +3,29 @@
 
     angular
         .module('controllers', [])
-        .controller("userController", userController);
+        .controller("userController", userController)
+        .controller("editUser", editUser);
 
-    function userController(userService, _, $interval, $log, $filter) {
+    function editUser($stateParams) {
+        var vm = this;
+        vm.message = "Adding new user"
+        if($stateParams.userid) {
+            vm.message = "Edit user: " + $stateParams.userid;
+        }
+
+        activate();
+
+        function activate() {
+            // userService.getUsers(user)
+            //     .then(function(user) {
+            //         vm.user = user;
+            //     })
+        }
+
+
+    }
+
+    function userController(_, $interval, $log, $filter, users) {
         var vm = this;
         vm.users = [];
         vm.message = "User table";
@@ -23,18 +43,19 @@
         //countDown();
 
         function activate() {
-            var gmailFilter = $filter('gmailFilter');
-            userService.getUsers(vm.page, vm.sort)
-                .then(function(users) {
-                    if(!users) {
-                        next("error");
-                    }
-                    var filteredUsers = gmailFilter(users);
-                    vm.users = filteredUsers;
-                })
-                .catch(function(err) {
-                    console.log(err);
-                });
+            vm.users = users;
+            // var gmailFilter = $filter('gmailFilter');
+            // userService.getUsers(vm.page, vm.sort)
+            //     .then(function(users) {
+            //         if(!users) {
+            //             next("error");
+            //         }
+            //         var filteredUsers = gmailFilter(users);
+            //         vm.users = filteredUsers;
+            //     })
+            //     .catch(function(err) {
+            //         console.log(err);
+            //     });
         }
 
         function countDown() {
@@ -71,7 +92,6 @@
                 .catch(function(err) {
                 });
         }
-
         // vm.deleteUser = function(user) {
         //     console.log('deleting', user.id);
 

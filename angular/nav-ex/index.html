@@ -20,16 +20,23 @@
             <ng-include src="'view2.html'"></ng-include>
         -->
 
+        <!--
         <a class="btn btn-default" href="#/">Home</a>
         <a class="btn btn-default" href="#/view1">View 1</a>
         <a class="btn btn-default" href="#/view2">View 2</a>
         <a class="btn btn-default" href="#/view2/123">View 2 with id 123</a>
-        <div ng-view></div>
+        -->
+        <a class="btn btn-default" ui-sref="/">Home</a>
+        <a class="btn btn-default" ui-sref="view1">View 1</a>
+        <a class="btn btn-default" ui-sref="view2">View 2</a>
+        <a class="btn btn-default" ui-sref="view2({userid: 123})">View 2 with id 123</a>
+        <div ui-view></div>
 
     </div>
 
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/controllers.module.js"></script>
     <script src="scripts/controllers/nav.controller.js"></script>
