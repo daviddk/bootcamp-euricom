@@ -16,6 +16,10 @@ nav.navbar img {
     margin: 0 0 10px 0;
 }
 
+form {
+    margin-bottom: 50px;
+}
+
 /*.ng-scope {
     border: 3px solid red;
 }

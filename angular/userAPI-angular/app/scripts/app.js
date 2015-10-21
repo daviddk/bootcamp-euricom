@@ -7,7 +7,8 @@
             'ngResource',
             'ngSanitize',
             'toaster',
-            'ngRoute'
+            'ngRoute',
+            'ngMessages'
         ])
         .constant('CONFIG', {
             urlBase: '/api',

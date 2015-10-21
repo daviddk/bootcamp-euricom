@@ -6,22 +6,37 @@
         .controller("userController", userController)
         .controller("editUser", editUser);
 
-    function editUser($stateParams) {
+    function editUser($stateParams, $log, $scope, userService) {
         var vm = this;
+        vm.submit = submit;
+        vm.user = {};
+
         vm.message = "Adding new user"
         if($stateParams.userid) {
+            activate();
             vm.message = "Edit user: " + $stateParams.userid;
         }
 
-        activate();
-
         function activate() {
-            // userService.getUsers(user)
-            //     .then(function(user) {
-            //         vm.user = user;
-            //     })
+            userService.getUser($stateParams.userid)
+                .then(function(user) {
+                    vm.user = user;
+                })
         }
 
+        function submit(valid) {
+            if(!valid)
+                return;
+
+            $scope.myForm.submitting = true;
+            $log.info(vm.user.name);
+            $log.info(vm.user.age)
+
+            userService.saveUser(vm.user)
+                .then(function(user){
+                    vm.user = user;
+                });
+        }
 
     }
 

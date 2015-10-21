@@ -6,14 +6,43 @@
         .service('userService', userService);
 
     function userService($http, CONFIG, $resource) {
+        console.log()
+        var User = $resource('api/users/:id',
+            {id: '@id'},
+            {
+                update: {method: 'PUT'}
+            }
+        );
 
-        var User = $resource('api/users/:id', {id: '@id'});
+        // User.$store = function() {
+        //     if(!this.id) {
+        //         return this.$save;
+        //     }
+        //     else {
+        //         return this.$update();
+        //     }
+        // }
+
+        this.saveUser = function(user) {
+            if(user.id) {
+                return User.update(user).$promise
+                    .then(function(user) {
+                        return user;
+                    });
+            }
+            else {
+                return User.save(user).$promise
+                    .then(function(user) {
+                        return user;
+                    });
+            }
+        }
 
         this.getUser = function(id) {
-            return User.get(id).$promise
+            return User.get({id: id}).$promise
                 .then(function(user) {
                     return user;
-                })
+                });
         }
 
         this.getUsers = function(page, sort) {

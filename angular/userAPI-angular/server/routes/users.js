@@ -9,7 +9,7 @@ var userController = require('../controllers/usercontroller');
 var userSchema = {
     type: 'object',
     properties: {
-        name: { type: 'string', minLength: 10, optional: false },
+        name: { type: 'string', minLength: 5, optional: false },
         email: { type: 'string', pattern: 'email', optional: false },
         age: { type: 'number', optional: true },
         address: { type: 'string', optional: true },
