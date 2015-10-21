@@ -23,5 +23,16 @@
             .otherwise({
                 redirectTo: '/'
             });
+    })
+    .run(function($rootScope, $log){
+        $rootScope.$on('$routeChangeStart', function(next, current) {
+            $log.info('route change start', next, current);
+        });
+        $rootScope.$on('$routeChangeSuccess', function(current, previous) {
+            $log.info('route changed succesfully', current, previous);
+        });
+        $rootScope.$on('$routeChangeError', function(current, previous) {
+            $log.error('route change error', current, previous);
+        });
     });
 })(angular);
