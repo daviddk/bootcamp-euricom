@@ -7,7 +7,7 @@
 
     function userService($http, CONFIG, $resource) {
 
-        var User = $resource('sdapi/users/:id', {id: '@id'});
+        var User = $resource('api/users/:id', {id: '@id'});
 
         this.getUser = function(id) {
             return User.get(id).$promise

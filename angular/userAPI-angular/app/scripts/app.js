@@ -4,6 +4,7 @@
             'controllers',
             'ui.bootstrap',
             'ngResource',
+            'ngSanitize',
             'toaster'
         ])
         .constant('CONFIG', {

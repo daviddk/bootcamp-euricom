@@ -5,7 +5,7 @@
         .module('controllers', [])
         .controller("userController", userController);
 
-    function userController(userService, _, $interval, $log) {
+    function userController(userService, _, $interval, $log, $filter) {
         var vm = this;
         vm.users = [];
         vm.message = "User table";
@@ -17,17 +17,20 @@
         vm.showAlerts = false;
         vm.counter = "Waiting for launch codes...";
         vm.countDown = countDown;
+        vm.text = "Test: <script>window.alert('hello')</script>";
 
         activate();
         //countDown();
 
         function activate() {
+            var gmailFilter = $filter('gmailFilter');
             userService.getUsers(vm.page, vm.sort)
                 .then(function(users) {
                     if(!users) {
                         next("error");
                     }
-                    vm.users = users;
+                    var filteredUsers = gmailFilter(users);
+                    vm.users = filteredUsers;
                 })
                 .catch(function(err) {
                     console.log(err);
