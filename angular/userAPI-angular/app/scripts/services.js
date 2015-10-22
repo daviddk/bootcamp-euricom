@@ -5,6 +5,7 @@
         .module('userApp')
         .service('userService', userService);
 
+    userService.$inject = ['$http', 'CONFIG', '$resource'];
     function userService($http, CONFIG, $resource) {
         console.log()
         var User = $resource('api/users/:id',

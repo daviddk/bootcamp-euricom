@@ -16,7 +16,7 @@
             pageSize: 10
         })
         // Angular UI Router
-        .config(function($stateProvider, $urlRouterProvider) {
+        .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
             $stateProvider
                 .state('alert', {
                     url: '/alert',
@@ -24,9 +24,9 @@
                     controller: 'userController',
                     controllerAs: 'vm',
                     resolve: {
-                        users: function(userService) {
+                        users: ['userService', function(userService) {
                             return userService.getUsers();
-                        }
+                        }]
                     }
 
                 })
@@ -36,9 +36,9 @@
                     controller: 'userController',
                     controllerAs: 'vm',
                     resolve: {
-                        users: function(userService) {
+                        users: ['userService', function(userService) {
                             return userService.getUsers();
-                        }
+                        }]
                     }
                 })
                 .state('add', {
@@ -55,7 +55,7 @@
                 });
 
             $urlRouterProvider.otherwise("list");
-        })
+        }])
         // Angular default router
         // .config(function($routeProvider, $locationProvider){
         //     $routeProvider
@@ -88,27 +88,27 @@
         // .config(function(userServiceProvider) {
         //     userServiceProvider.setBasePath('api/', 20);
         // })
-        .factory('_', function($window) {
+        .factory('_', ['$window', function($window) {
             return $window._;
-        })
-        .factory('logInterceptor', function logInterceptor($q, toaster) {
+        }])
+        .factory('logInterceptor', ['$q', 'toaster', function logInterceptor($q, toaster) {
             return {
                 request: function(request) {
                     //toaster.pop('success', "Request succesful", "request to " + request.url + " was succesful");
                     return $q.when(request);
                 }
             };
-        })
-        .factory('errorInterceptor', function logInterceptor($q, toaster) {
+        }])
+        .factory('errorInterceptor', ['$q', 'toaster', function logInterceptor($q, toaster) {
             return {
                 responseError: function(rejection) {
                     //toaster.pop('error', "Request unsuccesfull", "request to " + rejection.url + " was unsuccesfull");
                     return $q.reject(rejection);
                 }
             };
-        })
-        .config(function($httpProvider) {
+        }])
+        .config(['$httpProvider', function($httpProvider) {
             $httpProvider.interceptors.push('logInterceptor');
             $httpProvider.interceptors.push('errorInterceptor');
-        });
+        }]);
 })(angular);

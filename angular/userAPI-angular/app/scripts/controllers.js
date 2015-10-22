@@ -6,6 +6,7 @@
         .controller("userController", userController)
         .controller("editUser", editUser);
 
+    editUser.$inject = ['$stateParams', '$log', '$scope', 'userService'];
     function editUser($stateParams, $log, $scope, userService) {
         var vm = this;
         vm.submit = submit;
@@ -40,6 +41,7 @@
 
     }
 
+    userController.$inject = ['_', '$interval', '$log', '$filter', 'users'];
     function userController(_, $interval, $log, $filter, users) {
         var vm = this;
         vm.users = [];
