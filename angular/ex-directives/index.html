@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular Directives</title>
+</head>
+<body>
+    <div ng-app="directiveApp">
+        <div ng-controller="helloController as vm">
+            {{vm.hello}}
+        </div>
+
+        <my-directive>This is a button</my-directive>
+        <my-directive href="http://www.google.com">This is a link</my-directive>
+    </div>
+
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/controllers.module.js"></script>
+    <script src="scripts/controllers/directive.controller.js"></script>
+    <script src="scripts/directives/mydirective.directive.js"></script>
+</body>
+</html>
