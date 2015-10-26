@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <title>Angular filters</title>
+        <base href="/" />
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+        <style>
+            [ng-cloak] { display: none; }
+            .form .loading { background:gray;}
+        </style>
+    </head>
+    <body ng-app="app" ng-cloak>
+
+        <header ng-controller="NavController as vm">
+            <div class="container">
+                <ul class="nav nav-pills">
+                    <li role="presentation" ng-class="{ active: vm.isActive('/')}">
+                        <a href="#/">Home</a>
+                    </li>
+                    <li role="presentation" ng-class="{ active: vm.isActive('/list')}">
+                        <a href="#/list">Persons</a>
+                    </li>
+                </ul>
+            </div>
+        </header>
+
+        <div class="container">
+            <!-- content area -->
+            <div ng-view></div>
+        </div>
+
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/angular-route/angular-route.js"></script>
+        <script src="bower_components/angular-messages/angular-messages.js"></script>
+        <script src="bower_components/moment/moment.js"></script>
+        <script src="scripts/app.js"></script>
+        <script src="scripts/controllers/navController.js"></script>
+        <script src="scripts/controllers/homeController.js"></script>
+        <script src="scripts/controllers/listcontroller.js"></script>
+        <script src="scripts/controllers/detailcontroller.js"></script>
+        <script src="scripts/services/personService.js"></script>
+        <script src="scripts/filters/dateFormat.filter.js"></script>
+    </body>
+</html>

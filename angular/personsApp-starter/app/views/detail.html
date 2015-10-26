@@ -1,0 +1,60 @@
+<div>
+    <h1>Edit/Add Person</h1>
+
+    <div class="alert alert-warning" ng-show="vm.errorMessage">
+        {{ vm.errorMessage }}
+    </div>
+
+    <form name="personForm" novalidate ng-submit="vm.submitForm(personForm.$valid)"
+          ng-class="{ loading:form.submitting }">
+        <div class="form-group"
+             ng-class="{'has-error': personForm.name.$invalid && (personForm.name.$touched || personForm.$submitted)}">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" name="name" placeholder="Enter name"
+                   ng-model="vm.person.name" ng-minlength="3" ng-maxlength="20" required>
+            <div ng-if="personForm.$submitted || personForm.name.$touched"
+                 ng-messages="personForm.name.$error" class="help-block error"
+                 ng-messages-include="views/errors.html">
+            </div>
+        </div>
+        <div class="form-group"
+             ng-class="{'has-error': personForm.email.$invalid && (personForm.email.$touched || personForm.$submitted)}">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" name="email" placeholder="Enter email"
+                   ng-model="vm.person.email" required>
+            <div ng-if="personForm.$submitted || personForm.email.$touched"
+                 ng-messages="personForm.email.$error" class="help-block error"
+                 ng-messages-include="views/errors.html">
+            </div>
+        </div>
+        <div class="form-group"
+             ng-class="{'has-error': personForm.age.$invalid && (personForm.age.$touched || personForm.$submitted)}">
+            <label for="age">Age</label>
+            <input type="number" class="form-control" name="age" placeholder="Enter age"
+                   ng-model="vm.person.age" required>
+            <div ng-if="personForm.$submitted || personForm.age.$touched"
+                 ng-messages="personForm.age.$error" class="help-block error"
+                 ng-messages-include="views/errors.html">
+            </div>
+        </div>
+        <div class="form-group"
+             ng-class="{'has-error': personForm.birthDate.$invalid && personForm.birthDate.$touched}">
+            <label for="birthDate">Birth Date</label>
+            <input type="date" class="form-control" name="birthDate"
+                   ng-model="vm.person.birthDate" placeholder="Enter birth date">
+            <div ng-messages="personForm.birthDate.$error" class="help-block error"
+                 ng-messages-include="views/errors.html">
+            </div>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="vm.person.married"> Married
+            </label>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">Submit</button>
+            <a href="#/list" class="btn btn-default">Cancel</a>
+        </div>
+    </form>
+    <!-- <pre>{{personForm | json}}</pre> -->
+</div>

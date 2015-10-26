@@ -1,0 +1,33 @@
+<div>
+    <h1>Persons</h1>
+
+    <a href="#/detail" class="btn btn-primary">Add</a><br><br>
+
+    <table class="table table-striped">
+        <tr>
+            <th>id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Age</th>
+            <th>Birthdate</th>
+            <th>Married</th>
+            <th>&nbsp;</th>
+        </tr>
+        <tr ng-repeat="person in vm.persons">
+            <td>{{person.id}}</td>
+            <td>{{person.name}}</td>
+            <td>{{person.email}}</td>
+            <td>{{person.age}}</td>
+            <td>{{person.birthDate | dateFormat}}</td>
+            <td>{{person.married}}</td>
+            <td>
+                <a ng-href="#/detail/{{person.id}}" class="btn btn-success">
+                    edit
+                </a>
+                <a ng-click="vm.removePerson(person)" class="btn btn-danger">
+                    delete
+                </a>
+            </td>
+        </tr>
+    </table>
+</div>
