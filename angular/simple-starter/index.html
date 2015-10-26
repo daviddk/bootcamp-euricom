@@ -23,7 +23,7 @@
                 <div class="col-md-6">
                     <table class="table">
                         <tr ng-repeat="item in customers | orderBy:'city' | filter:{name: nameFilter}">
-                            <td>{{item.name}}</td>
+                            <td>{{item.name | upper}}</td>
                             <td>{{item.city}}</td>
                         </tr>
                     </table>
