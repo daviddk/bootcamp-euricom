@@ -8,10 +8,16 @@
     <div ng-app="directiveApp">
         <div ng-controller="helloController as vm">
             {{vm.hello}}
+
+            <my-directive boundfn="vm.doThat()"></my-directive>
+
         </div>
 
-        <my-directive>This is a button</my-directive>
-        <my-directive href="http://www.google.com">This is a link</my-directive>
+
+    <!--<my-directive>This is a button</my-directive>
+
+        <my-directive href="http://www.google.com">This is a link</my-directive> -->
+
     </div>
 
     <script src="bower_components/angular/angular.js"></script>

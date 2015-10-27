@@ -41,8 +41,8 @@
 
     }
 
-    userController.$inject = ['_', '$interval', '$log', '$filter', 'users'];
-    function userController(_, $interval, $log, $filter, users) {
+    userController.$inject = ['_', '$interval', '$log', '$filter', 'users', '$scope'];
+    function userController(_, $interval, $log, $filter, users, $scope) {
         var vm = this;
         vm.users = [];
         vm.message = "User table";
@@ -55,6 +55,12 @@
         vm.counter = "Waiting for launch codes...";
         vm.countDown = countDown;
         vm.text = "Test: <script>window.alert('hello')</script>";
+        //vm.nameTest = "test";
+
+        $scope.$watch('vm.nameTest', function(newVal, oldVal) {
+            $log.info('newVal:', newVal);
+            $log.info('newVal:', oldVal);
+        });
 
         activate();
         //countDown();
@@ -77,12 +83,33 @@
 
         function countDown() {
             vm.counter = 10;
-            $interval(function() {
-                vm.counter--;
-                if(vm.counter == 0) {
+
+            //low level native way, doesn't apply to angular scope!
+            var timer = function() {
+                setTimeout(runCount, 1000);
+            }
+
+            timer();
+
+            function runCount() {
+                if(vm.counter !== 0) {
+                    vm.counter--;
+                    console.log(vm.counter);
+                    timer();
+                }
+                else {
                     vm.showAlert();
                 }
-            }, 1000, vm.counter);
+                $scope.$apply();
+            }
+
+            //Angular way
+            // $interval(function() {
+            //     vm.counter--;
+            //     if(vm.counter == 0) {
+            //         vm.showAlert();
+            //     }
+            // }, 1000, vm.counter);
         }
 
         vm.showAlert = function() {

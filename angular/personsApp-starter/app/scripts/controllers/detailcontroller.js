@@ -15,6 +15,10 @@
         /////////
 
         function activate() {
+            if (!$routeParams.id) {
+                return;
+            }
+
             personService.getOne($routeParams.id)
                 .then(function(person) {
                     vm.person = person;

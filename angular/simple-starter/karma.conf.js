@@ -10,15 +10,19 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+    //frameworks: ['mocha', 'chai-sinon', 'jquery-chai'],
     frameworks: ['mocha', 'chai-sinon'],
 
 
     // list of files / patterns to load in the browser
     files: [
-      'bower_components/angular/angular.js',
-      'bower_components/angular-mocks/angular-mocks.js',
-      'app.js',
-      '*.spec.js'
+        'bower_components/angular/angular.js',
+        'bower_components/angular-mocks/angular-mocks.js',
+        'app.js',
+        'customerService.js',
+        //'my.spec.js',
+        'alert.spec.js',
+        '*.tpl.html'
     ],
 
 
@@ -30,13 +34,14 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+        '*.tpl.html': 'ng-html2js'
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['nyan'],
+    reporters: ['spec'],
 
 
     // web server port

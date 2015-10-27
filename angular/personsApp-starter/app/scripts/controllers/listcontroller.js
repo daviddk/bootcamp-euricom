@@ -14,10 +14,10 @@
                 vm.persons = persons;
             });
 
-        vm.removePerson = function (id) {
-            personService.remove(id)
+        vm.removePerson = function (person) {
+            personService.remove(person)
                 .then(function(person){
-                    vm.persons.splice(persons.indexOf(person), 1);
+                    vm.persons.splice(vm.persons.indexOf(person), 1);
                 });
         };
     };
