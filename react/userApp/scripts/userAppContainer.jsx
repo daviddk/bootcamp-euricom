@@ -105,8 +105,8 @@ var UserList = React.createClass({
         })
     },
     _renderMarried: function(userMarried) {
-        if(userMarried) return "true";
-        else return "false";
+        if(userMarried) return <input type="checkbox" checked disabled />;
+        else return <input type="checkbox" disabled />;
     }
 });
 
@@ -142,11 +142,12 @@ var AddUserForm = React.createClass({
                         onChange={this.props.onChange}
                         value={this.props.newUser.birthday} />
                 </div>
-                <div className="form-group">
-                    <label htmlFor="married">Married</label><br />
-                    <input type="checkbox" name="married"
-                        onChange={this.props.onChange}
-                        value={this.props.newUser.married} />
+                <div className="checkbox">
+                    <label htmlFor="married">
+                        <input type="checkbox" name="married"
+                            onChange={this.props.onChange}
+                            value={this.props.newUser.married} />
+                        Married</label>
                 </div>
                 <input type="submit" className="btn btn-default" onClick={this.props.onSave} />
             </form>
