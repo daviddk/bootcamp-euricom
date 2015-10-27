@@ -19,7 +19,8 @@ var UserAppContainer = React.createClass({
                     married: true
                 }
             ],
-            newUser: this._generateUser()
+            newUser: this._generateUser(),
+            errors: {}
         }
     },
     render: function() {
@@ -39,7 +40,10 @@ var UserAppContainer = React.createClass({
                     <UserList users={this.state.users} onChange="" />
                 </table>
 
-                <AddUserForm newUser={this.state.newUser} onChange={this._handleChange} onSave={this._addUser} />
+                <AddUserForm    newUser={this.state.newUser}
+                                onChange={this._handleChange}
+                                onSave={this._addUser}
+                                errors={this.state.errors} />
             </div>
         )
     },
@@ -64,24 +68,69 @@ var UserAppContainer = React.createClass({
     },
     _addUser: function(e) {
         e.preventDefault();
-        this.setState({
-            users: this.state.users.concat(this.state.newUser),
-            newUser: this._generateUser()
-        });
+        if(this._isInputValid(this.state.newUser)) {
+            this.setState({
+                users: this.state.users.concat(this.state.newUser),
+                newUser: this._generateUser()
+            });
+        }
+        else {
+            console.log(this.state.errors);
+        }
     },
     _generateUser: function(e) {
         return {
             id: '',
             name: '',
             email: '',
-            age: '',
+            age: null,
             birthday: '',
-            married: ''
+            married: null
         };
+    },
+    _isInputValid: function() {
+        var isValid = true;
+        var errors = {};
+
+        if(this.state.newUser.name.length < 3) {
+            isValid = false;
+            errors.name = 'Name must be at least 3 characters long.';
+        }
+
+        var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        if(!this.state.newUser.email.match(emailRegex)) {
+            isValid = false;
+            errors.email = 'Not a valid email adres.';
+        }
+
+        if(this.state.newUser.age < 18) {
+            isValid = false;
+            errors.age = 'A user should be 18 years or older.'
+        }
+
+        if(this.state.newUser.birthday.length < 1) {
+            isValid = false;
+            errors.birthday = 'this field is required'
+        }
+
+        this.setState({
+            errors: errors
+        });
+
+        return isValid;
     }
 });
 
 var UserList = React.createClass({
+    propTypes: {
+        newUser: React.PropTypes.shape({
+            name: React.PropTypes.string.isRequired,
+            email: React.PropTypes.string.isRequired,
+            age: React.PropTypes.number,
+            birthday: React.PropTypes.string,
+            married: React.PropTypes.bool
+        })
+    },
     render: function() {
         return (
             <tbody>
@@ -105,12 +154,23 @@ var UserList = React.createClass({
         })
     },
     _renderMarried: function(userMarried) {
-        if(userMarried) return <input type="checkbox" checked disabled />;
-        else return <input type="checkbox" disabled />;
+        if(userMarried) return <span className="glyphicon glyphicon-ok"></span>;
+        else return <span className=""></span>;
     }
 });
 
 var AddUserForm = React.createClass({
+    propTypes: {
+        newUser: React.PropTypes.shape({
+            name: React.PropTypes.string.isRequired,
+            email: React.PropTypes.string.isRequired,
+            age: React.PropTypes.number,
+            birthday: React.PropTypes.string,
+            married: React.PropTypes.bool
+        }),
+        onChange: React.PropTypes.func.isRequired,
+        onSave: React.PropTypes.func.isRequired
+    },
     render: function() {
         return (
             <form>
@@ -120,6 +180,7 @@ var AddUserForm = React.createClass({
                         name="name" className="form-control"
                         onChange={this.props.onChange}
                         value={this.props.newUser.name} />
+                    <div style={{'color': 'red'}}>{this.props.errors.name}</div>
                 </div>
                 <div className="form-group">
                     <label htmlFor="email">Email</label>
@@ -127,13 +188,15 @@ var AddUserForm = React.createClass({
                         name="email" className="form-control"
                         onChange={this.props.onChange}
                         value={this.props.newUser.email} />
+                    <div style={{'color': 'red'}}>{this.props.errors.email}</div>
                 </div>
                     <div className="form-group">
                     <label htmlFor="age">Age</label>
                     <input type="number" placeholder="Enter age"
                         name="age" className="form-control"
                         onChange={this.props.onChange}
-                        value={this.props.newUser.age} />
+                        value={parseInt(this.props.newUser.age, 10)} />
+                    <div style={{'color': 'red'}}>{this.props.errors.age}</div>
                 </div>
                 <div className="form-group">
                     <label htmlFor="birthday">Birthday</label>
@@ -141,6 +204,7 @@ var AddUserForm = React.createClass({
                         name="birthday" className="form-control"
                         onChange={this.props.onChange}
                         value={this.props.newUser.birthday} />
+                    <div style={{'color': 'red'}}>{this.props.errors.birthday}</div>
                 </div>
                 <div className="checkbox">
                     <label htmlFor="married">
