@@ -15,9 +15,9 @@ var EmployeeContainer = React.createClass({
             </div>
         )
     },
-    _handleChange: function(field, e) {
+    _handleChange: function(e) {
         this.setState({
-            newEmployee.field: e.target.value
+            newEmployee: e.target.value
         });
     },
     _addNewEmployee: function() {
@@ -46,6 +46,11 @@ var EmployeeList = React.createClass({
 });
 
 var AddEmployee = React.createClass({
+    propTypes: {
+        newEmployee: React.PropTypes.string.isRequired,
+        onChange: React.PropTypes.func.isRequired,
+        onSave: React.PropTypes.func.isRequired
+    },
     render: function() {
         return (
             <div>

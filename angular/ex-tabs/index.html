@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular Tabs App</title>
+</head>
+<body>
+    <div ng-app="tabsApp">
+        <h1>Tabs app</h1>
+        <div ng-controller="tabAppController as vm">
+            {{vm.hello}}
+        </div>
+
+        <tabs>
+            <tab title="Tab 1">This is some content for our FIRST tab!</tab>
+            <tab title="Tab 2">This is some content for our SECOND tab!</tab>
+        </tabs>
+    </div>
+
+    <!-- uiteindelijke resultaat in HTML: -->
+    <!--
+        <ul>
+            <li class="active"></li>
+            <li></li>
+        </li>
+        <div>
+            <div class="selected"></div>
+            <div></div>
+        </div>
+    -->
+
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/controllers.module.js"></script>
+    <script src="scripts/controllers/tabapp.controller.js"></script>
+    <script src="scripts/directives/tabs.directive.js"></script>
+    <script src="scripts/directives/tab.directive.js"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+<div>
+    <ul ng-repeat="tab in vm.tabs">
+        <li><a href="" ng-click="vm.tabActivated(tab)">{{tab.title()}}</a></li>
+    </ul>
+    <div ng-transclude>
+        <!-- repeater that shows titles of tabs -->
+    </div>
+</div>
