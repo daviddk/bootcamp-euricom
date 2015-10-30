@@ -1,5 +1,6 @@
 import React from 'react';
 import cartStore from '../stores/cartStore';
+import cartActions from '../actions/cartActions';
 
 var cartContainer = React.createClass({
     getInitialState: function() {
@@ -16,11 +17,11 @@ var cartContainer = React.createClass({
                     <thead>
                         <tr>
                             <th></th>
-                            <th>Artikel</th>
-                            <th>Aantal</th>
-                            <th>Prijs</th>
+                            <th>Article</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
                             <th></th>
-                            <th>Subtotaal</th>
+                            <th>Subtotal</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,13 +37,14 @@ var cartContainer = React.createClass({
     },
     _renderItems: function() {
         var self = this;
-        console.log(this.state.cartItems);
         if(this.state.cartItems && this.state.cartItems.length > 0) {
             return this.state.cartItems.map(function(item, index) {
                 return (
                     <tr key={index}>
                         <td>
-                            <button className='btn btn-danger'>
+                            <button
+                                className='btn btn-danger'
+                                onClick={self._deleteOrderLine} >
                                 <span className='glyphicon glyphicon-trash'></span>
                             </button>
                         </td>
@@ -50,17 +52,19 @@ var cartContainer = React.createClass({
                             {item.title}
                         </td>
                         <td>
-                            amount
+                            {item.quantity}
                         </td>
                         <td>
-                            price
+                            € {parseFloat(item.cost).toFixed(2)}
                         </td>
                         <td>
-                            <button className='btn btn-default'>+</button>
-                            <button className='btn btn-default'>-</button>
+                            <button className='btn btn-default'
+                                    onClick={self._increment.bind(null, item)}>+</button>
+                            <button className='btn btn-default'
+                                    onClick={self._decrement.bind(null, item)}>-</button>
                         </td>
                         <td>
-                            subtotal
+                            € {parseFloat(item.cost * item.quantity).toFixed(2)}
                         </td>
                     </tr>
                 )
@@ -73,7 +77,15 @@ var cartContainer = React.createClass({
             cartItems: cartStore.getCart()
         })
     },
-
+    _deleteOrderLine: function() {
+        return true;
+    },
+    _increment: function(item) {
+        cartActions.add(item);
+    },
+    _decrement: function(item) {
+        cartActions.delete(item);
+    }
 });
 
 export default cartContainer;

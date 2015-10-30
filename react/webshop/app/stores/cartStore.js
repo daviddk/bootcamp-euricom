@@ -22,18 +22,42 @@ var calculateTotal = function() {
     if(_cart && _cart.length > 0) {
         let total = 0;
         _cart.map(function(orderLine) {
-            total = total + orderLine.cost;
+            total += orderLine.cost * orderLine.quantity;
         });
         return parseFloat(total).toFixed(2);
     }
+    return 0;
+}
 
+var calculateTotalQuantity = function() {
+    if(_cart && _cart.length > 0) {
+        let total = 0;
+        _cart.map(function(orderLine) {
+            total += orderLine.quantity;
+        });
+        return total;
+    }
     return 0;
 }
 
 var addToCart = function(item) {
-    //check if item already exists in array, of so add amount property
+    if(_.findIndex(_cart, {'id': item.id}) >= 0) {
+        item.quantity++;
+    }
+    else {
+        item.quantity = 1;
+        _cart.push(item);
+    }
+}
 
-    _cart.push(item);
+var delFromCart = function(item) {
+    var index = _.findIndex(_cart, {'id': item.id});
+    if(index >= 0) {
+        item.quantity--;
+        if(item.quantity <= 0) {
+            _cart.splice(index);
+        }
+    }
 }
 
 var cartStore = objectAssign({}, EventEmitter.prototype, {
@@ -50,7 +74,7 @@ var cartStore = objectAssign({}, EventEmitter.prototype, {
         return _cart;
     },
     getCartCount: function() {
-        return _cart.length;
+        return calculateTotalQuantity();
     },
     getCartTotal: function() {
         return calculateTotal();
@@ -62,7 +86,10 @@ appDispatcher.register(function(payload) {
     switch(action.actionType) {
         case 'ADD_TO_CART':
             addToCart(action.data);
-            console.log(_cart);
+            cartStore.emit('CHANGE_EVENT');
+            break;
+        case 'DEL_FROM_CART':
+            delFromCart(action.data);
             cartStore.emit('CHANGE_EVENT');
             break;
         default:

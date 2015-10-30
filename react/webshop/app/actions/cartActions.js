@@ -1,10 +1,16 @@
 import appDispatcher from '../appDispatcher';
 
 var cartActions = {
-    add: function(itemid) {
+    add: function(item) {
         appDispatcher.handleAction({
             actionType: 'ADD_TO_CART',
-            data: itemid
+            data: item
+        });
+    },
+    delete: function(item) {
+        appDispatcher.handleAction({
+            actionType: 'DEL_FROM_CART',
+            data: item
         });
     }
 }
