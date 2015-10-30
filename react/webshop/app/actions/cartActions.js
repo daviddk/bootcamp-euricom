@@ -12,6 +12,12 @@ var cartActions = {
             actionType: 'DEL_FROM_CART',
             data: item
         });
+    },
+    deleteLine: function(item) {
+        appDispatcher.handleAction({
+            actionType: 'DELETE_LINE_FROM_CART',
+            data: item
+        })
     }
 }
 

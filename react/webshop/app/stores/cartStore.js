@@ -52,12 +52,18 @@ var addToCart = function(item) {
 
 var delFromCart = function(item) {
     var index = _.findIndex(_cart, {'id': item.id});
+    console.log(index);
     if(index >= 0) {
         item.quantity--;
         if(item.quantity <= 0) {
-            _cart.splice(index);
+            _cart.splice(index, 1);
         }
     }
+}
+
+var deleteLine = function(item) {
+    var index = _.findIndex(_cart, {'id': item.id});
+    _cart.splice(index, 1);
 }
 
 var cartStore = objectAssign({}, EventEmitter.prototype, {
@@ -90,6 +96,10 @@ appDispatcher.register(function(payload) {
             break;
         case 'DEL_FROM_CART':
             delFromCart(action.data);
+            cartStore.emit('CHANGE_EVENT');
+            break;
+        case 'DELETE_LINE_FROM_CART':
+            deleteLine(action.data);
             cartStore.emit('CHANGE_EVENT');
             break;
         default:

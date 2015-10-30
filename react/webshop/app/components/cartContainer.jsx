@@ -44,7 +44,7 @@ var cartContainer = React.createClass({
                         <td>
                             <button
                                 className='btn btn-danger'
-                                onClick={self._deleteOrderLine} >
+                                onClick={self._deleteOrderLine.bind(null, item)} >
                                 <span className='glyphicon glyphicon-trash'></span>
                             </button>
                         </td>
@@ -73,12 +73,19 @@ var cartContainer = React.createClass({
         return <tr><td colSpan='7'>No items in your cart</td></tr>
     },
     componentDidMount: function() {
-        this.setState({
-            cartItems: cartStore.getCart()
-        })
+        cartStore.addChangeListener(this._onStoreChange);
     },
-    _deleteOrderLine: function() {
-        return true;
+    componentWillUnmount: function() {
+        cartStore.removeChangeListener(this._onStoreChange);
+    },
+    _onStoreChange: function() {
+        this.setState({
+            cartItems: cartStore.getCart(),
+            cartTotal: cartStore.getCartTotal()
+        });
+    },
+    _deleteOrderLine: function(item) {
+        cartActions.deleteLine(item);
     },
     _increment: function(item) {
         cartActions.add(item);
