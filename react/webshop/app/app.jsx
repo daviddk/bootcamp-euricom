@@ -8,6 +8,7 @@ import {Router, Route, IndexRoute} from 'react-router';
 import NavBar from './components/navbar.jsx';
 import ShopOverview from './components/shopContainer.jsx';
 import Cart from './components/cartContainer.jsx';
+import Item from './components/item.jsx';
 
 var WebShopApp = React.createClass({
     render: function() {
@@ -31,6 +32,7 @@ ReactDOM.render(
         <Route path='/' component={WebShopApp}>
             <IndexRoute component={ShopOverview}/>
             <Route path="/cart" component={Cart}/>
+            <Route path="/cart/:id" component={Item}/>
         </Route>
     </Router>
 ), document.getElementById('webShopApp'));

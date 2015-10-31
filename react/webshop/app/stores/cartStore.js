@@ -52,7 +52,6 @@ var addToCart = function(item) {
 
 var delFromCart = function(item) {
     var index = _.findIndex(_cart, {'id': item.id});
-    console.log(index);
     if(index >= 0) {
         item.quantity--;
         if(item.quantity <= 0) {
