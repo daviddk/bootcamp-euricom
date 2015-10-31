@@ -13,7 +13,7 @@ for (var i=1; i<9; i++) {
         'title': 'Artikel #' + i,
         'summary': 'Dit is een speciaal artikel!',
         'description': 'Artikel omschrijving',
-        'imgUrl': 'assets/product.jpg',
+        'imgUrl': '/assets/product.jpg',
         'cost': i
     });
 }
@@ -74,6 +74,10 @@ var cartStore = objectAssign({}, EventEmitter.prototype, {
     },
     getItems: function() {
         return _catalog;
+    },
+    getItemById: function(id) {
+        var item = _.findWhere(_catalog, {'id': parseInt(id)});
+        return item;
     },
     getCart: function() {
         return _cart;

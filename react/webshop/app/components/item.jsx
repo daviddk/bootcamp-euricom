@@ -1,5 +1,6 @@
 import React from 'react';
 import cartActions from '../actions/cartActions';
+import {Link} from 'react-router';
 
 var item = React.createClass({
     render: function() {
@@ -13,7 +14,7 @@ var item = React.createClass({
         var item = this.props.item;
         return (
             <div className='col-xs-12 col-md-3'>
-                <h1>{item.title}</h1>
+                <h1><Link to={'/item/' + item.id}>{item.title}</Link></h1>
                 <img src={item.imgUrl} alt='product image' style={{width: 100}}/>
                 <p>{item.summary}</p>
                 <p>€ {parseFloat(item.cost).toFixed(2)}</p>
